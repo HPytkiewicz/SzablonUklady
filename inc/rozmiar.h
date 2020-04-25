@@ -1,8 +1,10 @@
 #ifndef ROZMIAR_H
 #define ROZMIAR_H
 
-#define ROZMIAR 5
+//#define ROZMIAR   5
 #define SKIP 14
+
+#define EPSILON 0.0001
 
 #define ERROROUTOFBOUNDS "Error: Wyjscie poza tablice."
 #define ERRORNOENUM "Error: Enum"

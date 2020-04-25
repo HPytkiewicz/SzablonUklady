@@ -1,4 +1,5 @@
 #include "LZespolona.hh"
+#include <iomanip>
 #include <cmath>
 
 /*!
@@ -9,7 +10,7 @@
  * Zwraca:
  *    Sume dwoch skladnikow przekazanych jako parametry.
  */
-LZespolona  operator + (LZespolona  Skl1,  LZespolona  Skl2)
+LZespolona  operator + (const LZespolona  Skl1, const LZespolona  Skl2)
 {
   LZespolona  Wynik;
 
@@ -27,7 +28,7 @@ LZespolona  operator + (LZespolona  Skl1,  LZespolona  Skl2)
  *    Roznice dwoch skladnikow przekazanych jako parametry.
  */
 
-LZespolona operator - (LZespolona Skl1,LZespolona Skl2){
+LZespolona operator - (const LZespolona Skl1,const LZespolona Skl2){
   LZespolona Wynik;
   
   Wynik.re=Skl1.re-Skl2.re;
@@ -45,7 +46,7 @@ LZespolona operator - (LZespolona Skl1,LZespolona Skl2){
  *    Iloczyn dwoch skladnikow przekazanych jako parametry.
  */
 
-LZespolona operator * (LZespolona Skl1,LZespolona Skl2){
+LZespolona operator * (const LZespolona Skl1,const LZespolona Skl2){
   LZespolona Wynik;
   
   Wynik.re=Skl1.re*Skl2.re-Skl2.im*Skl1.im;
@@ -62,7 +63,13 @@ LZespolona operator * (LZespolona Skl1,LZespolona Skl2){
  *     LIczbe rzeczywista bedaca wartoscia bezwzgledna z liczby zespolonej.
  */
 
-double modul(LZespolona Skl1){
+LZespolona operator += (LZespolona Skl1, const LZespolona Skl2){
+  Skl1 = Skl1 + Skl2;
+
+  return Skl1;
+}
+
+double modul(const LZespolona Skl1){
   double Wynik;
 
   Wynik=sqrt(pow(Skl1.re,2)+pow(Skl1.im,2));
@@ -78,7 +85,7 @@ double modul(LZespolona Skl1){
  *    LIczbe sprzezona do liczby zespolonej
  */
 
-LZespolona sprzezenie(LZespolona Skl1){
+LZespolona sprzezenie(const LZespolona Skl1){
   LZespolona Wynik;
   Wynik.re=Skl1.re;
   Wynik.im=Skl1.im*(-1);
@@ -95,7 +102,7 @@ LZespolona sprzezenie(LZespolona Skl1){
  *    Iloraz dwoch skladnikow przekazanych jako parametry.
  */
 
-LZespolona operator / (LZespolona Skl1, double R1){
+LZespolona operator / (const LZespolona Skl1, double R1){
   LZespolona Wynik;
 
   Wynik.re=Skl1.re/R1;
@@ -103,6 +110,16 @@ LZespolona operator / (LZespolona Skl1, double R1){
 
   return Wynik;
 }
+
+LZespolona operator * (const LZespolona Skl1, double R1){
+  LZespolona Wynik;
+
+  Wynik.re=Skl1.re*R1;
+  Wynik.im=Skl1.im*R1;
+
+  return Wynik;
+}
+
 
 /*!
  * Realizuje dzielenie dwoch liczb zespolonych.
@@ -121,31 +138,29 @@ LZespolona operator / (LZespolona Skl1, LZespolona Skl2){
   return Wynik;
 }
 
-bool operator == (LZespolona Skl1, LZespolona Skl2){
-  if(Skl1.re==Skl2.re && Skl1.im==Skl2.im)
+bool operator == (const LZespolona Skl1,const LZespolona Skl2){
+  if(abs(Skl1.re-Skl2.re)<=EPSILON && abs(Skl1.im-Skl2.im)<=EPSILON)
     return true;
   else
     return false;
+}
+
+bool operator != (const LZespolona Skl1,const LZespolona Skl2){
+  return !(Skl1==Skl2);
+}
+
+bool operator == (const LZespolona Skl1,const double R1){
+  if(abs(Skl1.re-R1)<=EPSILON && Skl1.im==0.0)
+    return true;
+  else
+    return false;
+}
+
+bool operator != (const LZespolona Skl1,const double R1){
+  return !(Skl1==R1);
 
 }
 
-/*!
- * Funkcja przydziela strukturze wartosci
- * Argumenty:
- *    l1- wartosc czesci rzeczywistej
- *    l2- wartosc czesci urojonej
- * Zwraca:
- *    Liczbe zespolona z podanymi wartosciami
- */
-
-LZespolona utworz(double l1, double l2){
-  LZespolona Wynik;
-
-  Wynik.re=l1;
-  Wynik.im=l2;
-
-  return Wynik;
-}
 
 /*!
  *Funkcja wypisujaca dana liczbe zespolona
@@ -155,13 +170,13 @@ LZespolona utworz(double l1, double l2){
 
 std::ostream & operator <<(std::ostream & strm,const LZespolona & Skl1){
 
-  strm<< '(' << Skl1.re << std::showpos << Skl1.im << 'i' <<  ')' << std::noshowpos;
+  strm<< '(' << Skl1.re << std::showpos << Skl1.im << "i)" << std::noshowpos;
   return strm;
   
 }
 std::istream & operator >>(std::istream & strm,LZespolona & Skl1){
 
-  char znak;
+ char znak;
 
   strm >> znak;
   if(znak!='(')
@@ -174,3 +189,23 @@ std::istream & operator >>(std::istream & strm,LZespolona & Skl1){
     strm.setstate(std::ios::failbit);
   return strm;
 }
+
+/*Dzialania arytmetyczne liczb zespolonych z rzeczywsistymi*/
+/*
+LZespolona operator +(LZespolona L1, double R1){
+  LZespolona wynik;
+
+  wynik.re = L1.re + R1;
+  wynik.im = L1.im;
+
+  return wynik;
+}
+
+LZespolona operator -(LZespolona L1, double R1){
+  LZespolona wynik;
+
+  wynik.re = L1.re - R1;
+  wynik.im = L1.im;
+
+  return wynik;
+}*/

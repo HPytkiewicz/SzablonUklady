@@ -11,7 +11,7 @@ struct  LZespolona {
 
   LZespolona(): re(0), im(0) {};
   LZespolona(double _re, double _im): re(_re), im(_im) {};
-  explicit LZespolona (double _re): re(_re) {};
+  explicit LZespolona (double _re): re(_re), im(0) {};
 
   LZespolona & operator = (double _re) {re = _re; im=0; return (*this);};
 };
@@ -29,8 +29,6 @@ LZespolona sprzezenie(LZespolona Skl1);
 LZespolona operator / (LZespolona Skl1, double R1);
 
 LZespolona operator / (LZespolona Skl1, LZespolona Skl2);
-
-LZespolona utworz(double l1, double l2);
 
 bool operator ==(LZespolona SKl1, LZespolona Skl2);
 

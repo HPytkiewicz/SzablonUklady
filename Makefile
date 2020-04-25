@@ -6,17 +6,17 @@ CPPFLAGS= -c -g -Iinc -Wall -pedantic
 __start__: szablon_uklad
 	./szablon_uklad
 
-szablon_uklad: obj/main.o obj/Wektor.o obj/LZespolona.o
-	g++ -Wall -pedantic -o szablon_uklad obj/main.o obj/Wektor.o obj/LZespolona.o
+szablon_uklad: obj/main.o obj/SWektor.o obj/LZespolona.o
+	g++ -Wall -pedantic -o szablon_uklad obj/main.o obj/SWektor.o obj/LZespolona.o
 
-obj/main.o: src/main.cpp inc/Wektor.hh inc/LZespolona.hh
+obj/main.o: src/main.cpp src/SWektorC.cpp src/LZespolona.cpp
 	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp
 
 obj/LZespolona.o: src/LZespolona.cpp inc/LZespolona.hh
 	g++ ${CPPFLAGS} -o obj/LZespolona.o src/LZespolona.cpp
 
-obj/Wektor.o: src/Wektor.cpp inc/Wektor.hh inc/rozmiar.h
-	g++ ${CPPFLAGS} -o obj/Wektor.o src/Wektor.cpp
+obj/SWektor.o: src/SWektor.cpp src/SWektorC.cpp inc/SWektor.hh 
+	g++ ${CPPFLAGS} -o obj/SWektor.o src/SWektorC.cpp
 
 clean:
 	rm -f obj/*.o szablon_uklad

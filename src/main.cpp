@@ -1,11 +1,14 @@
 #include <iostream>
-#include "Wektor.hh"
+#include <iomanip>
+#include "SWektor.hh"
 #include "LZespolona.hh"
 
 int main(){
-  LZespolona L1 = utworz(2,3);
-  Wektor W1(2,1,2);
-
+  Wektor<LZespolona,5> W1;
+  LZespolona L1;
+  L1={2,1};
+  for(double i=0;i<ROZMIAR;i++)
+    W1[i]={i,i};
   std::cout << L1 << std::endl << W1 << std::endl;
 
   return 0;

@@ -2,6 +2,7 @@
 #define WEKTOR_HH
 
 #include "rozmiar.h"
+#include "LZespolona.hh"
 #include <iostream>
 
 template<class TYP, int ROZMIAR>
@@ -29,8 +30,10 @@ class Wektor {
 template<class TYP, int ROZMIAR>
 Wektor<TYP, ROZMIAR> operator * (double a, const Wektor<TYP, ROZMIAR> &Wektor2);
 
+template<class TYP, int ROZMIAR>
 std::istream& operator >> (std::istream &strm, Wektor<TYP, ROZMIAR> &wektor);
 
+template<class TYP, int ROZMIAR>
 std::ostream& operator << (std::ostream &strm, const Wektor<TYP, ROZMIAR> &wektor);
 
 #endif

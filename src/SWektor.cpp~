@@ -1,5 +1,4 @@
-#include "SWektor.hh"
-#include "LZespolona.hh"
+#include "Wektor.hh"
 #include <cmath>
 #include <iomanip>
 

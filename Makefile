@@ -7,9 +7,9 @@ __start__: szablon_uklad
 	./szablon_uklad
 
 szablon_uklad: obj/main.o obj/Wektor.o obj/LZespolona.o
-	g++ -Wall -pedantic -o szablon_uklad obj/main.o obj/Wektor.o
+	g++ -Wall -pedantic -o szablon_uklad obj/main.o obj/Wektor.o obj/LZespolona.o
 
-obj/main.o: src/main.cpp inc/Wektor.hh src/LZespolona.cpp 
+obj/main.o: src/main.cpp inc/Wektor.hh inc/LZespolona.hh
 	g++ ${CPPFLAGS} -o obj/main.o src/main.cpp
 
 obj/LZespolona.o: src/LZespolona.cpp inc/LZespolona.hh

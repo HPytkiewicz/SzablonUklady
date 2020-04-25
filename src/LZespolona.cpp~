@@ -1,5 +1,8 @@
 #include "LZespolona.hh"
 #include <cmath>
+#include <iostream>
+
+using namespace std;
 
 /*!
  * Realizuje dodanie dwoch liczb zespolonych.
@@ -153,14 +156,15 @@ LZespolona utworz(double l1, double l2){
  *    Skl1 - liczba zespolona ktora ta funkcja wypisze
  */
 
-std::ostream & operator <<(std::ostream & strm,const LZespolona & Skl1){
+std::ostream & operator <<(std::ostream & strm,LZespolona Skl1){
+  using namespace std;
 
-  strm<< '(' << Skl1.re << std::showpos << Skl1.im << 'i' <<  ')' << std::noshowpos;
+  strm<< '(' << Skl1.re << showpos << Skl1.im << 'i' <<  ')' << noshowpos;
   return strm;
   
 }
 std::istream & operator >>(std::istream & strm,LZespolona & Skl1){
-
+  using namespace std;
   char znak;
 
   strm >> znak;

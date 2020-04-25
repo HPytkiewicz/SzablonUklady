@@ -1,6 +1,6 @@
 #include <iostream>
-#include <Wektor.hh>
-#include <LZespolona.hh>
+#include "Wektor.hh"
+#include "LZespolona.hh"
 
 int main(){
   LZespolona L1 = utworz(2,3);

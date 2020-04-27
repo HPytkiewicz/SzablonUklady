@@ -1,15 +1,19 @@
 #include <iostream>
 #include <iomanip>
+#include "SMacierz.hh"
 #include "SWektor.hh"
 #include "LZespolona.hh"
 
 int main(){
-Wektor<LZespolona,5> D3;
+ Wektor<LZespolona,5> W1;
  LZespolona L1 = {2,3};
-  D3[0] = {1,1};
-  std::cout << D3 << std::endl;
-  std::cout << D3.dlugosc() << std::endl;
+ Macierz<double,5> M1;
+  W1[0] = {1,1};
+  std::cin >> M1;
+  std::cout << W1 << std::endl;
+  std::cout << W1.dlugosc() << std::endl;
   std::cout << L1 << std::endl;
+  std::cout << M1 << std::endl;
   return 0;
 
 }

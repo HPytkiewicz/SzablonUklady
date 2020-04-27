@@ -13,7 +13,11 @@ class Macierz {
   Wektor<TYP,ROZMIAR> tab[ROZMIAR];
   //  double dopelnienie(int x, int y) const;
  public:
-  Macierz<TYP,ROZMIAR>();
+  Macierz<TYP,ROZMIAR>(){
+    for (int j = 0; j < ROZMIAR; j++)
+      for (int i = 0; i < ROZMIAR; i++)
+	this->tab[i][j] = 0;
+  }
 
   const Wektor<TYP,ROZMIAR>  & operator[] (int index) const;
   Wektor<TYP,ROZMIAR> & operator[] (int index);

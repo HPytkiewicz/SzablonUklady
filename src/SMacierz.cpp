@@ -3,15 +3,6 @@
 #include <iomanip>
 #include <iostream>
 
-
-// Inicjalizacja pustej macierzy
-template<class TYP, int ROZMIAR>
-Macierz<TYP,ROZMIAR>::Macierz<TYP,ROZMIAR>(){
- for (int j = 0; j < ROZMIAR; j++)
-    for (int i = 0; i < ROZMIAR; i++)
-       this->tab[i][j] = 0;
-}
-
 // Odwolanie sie do indexu macierzy
 template<class TYP, int ROZMIAR>
 const Wektor<TYP,ROZMIAR>  & Macierz<TYP,ROZMIAR>::operator[] (int index) const{
@@ -59,7 +50,7 @@ Macierz<TYP,ROZMIAR> Macierz<TYP,ROZMIAR>::operator -(const Macierz<TYP,ROZMIAR>
 
 // Mnozenie macierzy i liczby
 template<class TYP, int ROZMIAR>
-Macierz<TYP,ROZMIAR> Macierz<TYP,ROZMIAR>::operator *(TYP a) const 
+Macierz<TYP,ROZMIAR> Macierz<TYP,ROZMIAR>::operator *(double a) const 
 {
   Macierz<TYP,ROZMIAR> pomocnicza;
   for (int i = 0; i < ROZMIAR; i++)    
@@ -153,6 +144,18 @@ template<class TYP, int ROZMIAR>
       wynik[i] += (*this)[j][i] * wektor[j];
     }
   }
+  return wynik;
+}
+
+// Mnozenie dwoch macierzy
+template<class TYP, int ROZMIAR>
+Macierz<TYP,ROZMIAR> Macierz<TYP,ROZMIAR>::operator *(const Macierz<TYP,ROZMIAR> &macierz) const
+{
+  Macierz<TYP,ROZMIAR> wynik;
+  Macierz<TYP,ROZMIAR> pomoc=((*this).transponuj());
+  for(int i=0; i<ROZMIAR; ++i)
+    for(int j=0; j<ROZMIAR; ++j)
+      wynik[j][i] += pomoc[j] * macierz[i];
   return wynik;
 }
 

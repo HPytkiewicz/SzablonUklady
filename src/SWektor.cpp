@@ -46,7 +46,7 @@ Wektor<TYP,ROZMIAR> Wektor<TYP,ROZMIAR>::operator - (Wektor<TYP,ROZMIAR> const &
 // Mnozenie wektorow
 template<class TYP, int ROZMIAR>
 TYP Wektor<TYP,ROZMIAR>::operator * (Wektor<TYP,ROZMIAR> const &wektor) const{
-  TYP wynik;
+  TYP wynik(0.0);
   for(int i=0;i<ROZMIAR;i++)
     wynik+=(*this)[i] * wektor[i];
   return wynik;

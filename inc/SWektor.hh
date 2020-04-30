@@ -18,8 +18,8 @@ class Wektor {
   Wektor<TYP,ROZMIAR> operator + (Wektor<TYP,ROZMIAR> const &wektor) const;
   Wektor<TYP,ROZMIAR> operator - (Wektor<TYP,ROZMIAR> const &wektor) const;
   TYP operator * (Wektor<TYP,ROZMIAR> const &wektor) const;
-  Wektor<TYP,ROZMIAR> operator * (double const &a) const;
-  Wektor<TYP,ROZMIAR> operator / (double const &a) const;
+  Wektor<TYP,ROZMIAR> operator * (TYP a) const;
+  Wektor<TYP,ROZMIAR> operator / (TYP a) const;
 
   double dlugosc() const;
 
@@ -28,7 +28,7 @@ class Wektor {
 };
 
 template<class TYP, int ROZMIAR>
-Wektor<TYP,ROZMIAR> operator * (double a, const Wektor<TYP,ROZMIAR> &Wektor2);
+Wektor<TYP,ROZMIAR> operator * (TYP a, const Wektor<TYP,ROZMIAR> &Wektor2);
 
 template<class TYP, int ROZMIAR>
 std::istream& operator >> (std::istream &strm, Wektor<TYP,ROZMIAR> &wektor);

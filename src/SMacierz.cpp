@@ -53,9 +53,10 @@ template<class TYP, int ROZMIAR>
 Macierz<TYP,ROZMIAR> Macierz<TYP,ROZMIAR>::operator *(double a) const 
 {
   Macierz<TYP,ROZMIAR> pomocnicza;
+  TYP pomocTYP(a);
   for (int i = 0; i < ROZMIAR; i++)    
   {
-    pomocnicza[i] = (*this)[i] * a;
+    pomocnicza[i] = (*this)[i] * pomocTYP;
   }
   return pomocnicza;
 }
@@ -94,27 +95,24 @@ Macierz<TYP,ROZMIAR> Macierz<TYP,ROZMIAR>::transponuj() const
 /*
 // Oblicza dopelnienie macierzy
 template<class TYP, int ROZMIAR>
-double Macierz<TYP,ROZMIAR>::dopelnienie(int x, int y) const{
-  double pomoc;
-  if(x< 0 || x >= ROZMIAR || y<0 || y >= ROZMIAR){
-    std::cerr << ERROROUTOFBOUNDS << std::endl;
-    exit(1);
+TYP Macierz<TYP,ROZMIAR>::dopelnienie(int x, int y) const{
+  Macierz<TYP,4> wynikowa;
+  
+  int nr_kolumny_mac = 0;
+  for(int i=0; i<ROZMIAR; ++i){
+    for (int nr_kolumny_dop = 0; nr_kolumny_dop < ROZMIAR-1; nr_kolumny_dop++)
+      {
+       int nr_kolumny_mac = 0;
+       nr_kolumny_mac += (nr_kolumny_mac == i ? 1 : 0);  
+         for (int nr_wiersza = 0; nr_wiersza < ROZMIAR-1; nr_wiersza++)
+	   wynikowa[nr_wiersza][nr_kolumny_dop] = (*this)[nr_wiersza+1][nr_kolumny_mac];
+       nr_kolumny_mac++;
+      }
   }
-  pomoc= (*this)[(x+1)%ROZMIAR][(y+1)%ROZMIAR] * (*this)[(x+2)%ROZMIAR][(y+2)%ROZMIAR] - (*this)[(x+2)%ROZMIAR][(y+1)%ROZMIAR] * (*this)[(x+1)%ROZMIAR][(y+2)%ROZMIAR];
-  return pomoc;
+  
+  return wynikowa.wyznacznik();
 }
 
-// Oblicza dopelnienie macierzy liczb zespolonych
-template<>
-LZespolona Macierz<LZespolona,5>::dopelnienie(int x, int y) const{
-  LZespolona pomoc;
-  if(x< 0 || x >= ROZMIAR || y<0 || y >= ROZMIAR){
-    std::cerr << ERROROUTOFBOUNDS << std::endl;
-    exit(1);
-  }
-  pomoc= (*this)[(x+1)%ROZMIAR][(y+1)%ROZMIAR] * (*this)[(x+2)%ROZMIAR][(y+2)%ROZMIAR] - (*this)[(x+2)%ROZMIAR][(y+1)%ROZMIAR] * (*this)[(x+1)%ROZMIAR][(y+2)%ROZMIAR];
-  return pomoc;
-}
 
 // Oblicza macierz odwrotna
 template<class TYP, int ROZMIAR>
@@ -123,14 +121,15 @@ Macierz<TYP,ROZMIAR> Macierz<TYP,ROZMIAR>::odwroc() const{
   double wyznacznik=(*this).wyznacznik(sarrus);
   if(wyznacznik != 0){
     for(int j=0; j<ROZMIAR; j++)
-      for(int i=0; i<ROZMIAR; i++)
+      for(int i=0; i<ROZMIAR; i++){
 	macierzpom[i][j]=(*this).dopelnienie(i,j) / wyznacznik;
+	if(!((i+j)%2)) macierzpom[i][j]=macierzpom[i][j]*(-1);
+      }
   }else{
     exit(0);
   }
   return macierzpom.transponuj();
 }
-
 */
 // Mnozenie macierzy i wektora
 template<class TYP, int ROZMIAR>
@@ -146,6 +145,7 @@ template<class TYP, int ROZMIAR>
   }
   return wynik;
 }
+
 
 // Mnozenie dwoch macierzy
 template<class TYP, int ROZMIAR>
@@ -166,13 +166,14 @@ Macierz<TYP,ROZMIAR> operator *(double a, const Macierz<TYP,ROZMIAR> macierz)
   return macierz*a;
 }
 
-/*
+
 // Obliczenie wyznacznika macierzy
 template<class TYP, int ROZMIAR>
-double Macierz<TYP,ROZMIAR>::wyznacznik(metodaWyznacznika metoda) const{
+TYP Macierz<TYP,ROZMIAR>::wyznacznik() const{
 
-  double pomoc=0;
-  switch (metoda){
+  //  TYP pomoc(0);
+  //switch (metoda){
+    /*
   case sarrus:
     for(int i=0; i<ROZMIAR; i++)
       pomoc += (*this)[i % ROZMIAR][0] * (*this)[(i+1) % ROZMIAR][1] * (*this)[(i+2) % ROZMIAR][2];
@@ -184,12 +185,53 @@ double Macierz<TYP,ROZMIAR>::wyznacznik(metodaWyznacznika metoda) const{
     for(int i=0; i<ROZMIAR; i++)
       pomoc+= (*this)[i][0] * ((*this).dopelnienie(i,0));
     return pomoc;
-  }
-  std::cerr << ERRORNOENUM << std::endl;
-  exit(0);
-  
-}
 */
+    TYP wynik(1);
+    Macierz<TYP,ROZMIAR> pomocnicza(*this);
+
+    for(int i=0; i<ROZMIAR-1; i++){
+      bool flag = false;
+      int j=i;
+      while(!flag && j < ROZMIAR)
+	{
+	  if(pomocnicza[i][j] != 0)
+	    {
+	      if(i!=j){
+		pomocnicza = pomocnicza.ZmianaKolumn(i,j);
+		wynik = wynik * (-1);
+	      }
+	      flag = true;
+	    }
+	  j++;
+	}
+      if(!flag){
+	wynik = 0;
+	return wynik;
+      }
+      for (int x = i+1; x < ROZMIAR; i++)
+	pomocnicza[x]=pomocnicza[x] - pomocnicza[i] * pomocnicza[x][i] / pomocnicza[i][i];
+    }
+    for(int i=0; i<ROZMIAR; i++)
+      wynik = wynik * pomocnicza[i][i];
+    return wynik;
+
+}
+
+template<class TYP, int ROZMIAR>
+Macierz<TYP,ROZMIAR> Macierz<TYP,ROZMIAR>::ZmianaKolumn(int wektor1, int wektor2) const
+{
+  Macierz<TYP,ROZMIAR> Wynikowa(*this);
+  if (wektor1 < 0 || wektor1 >= ROZMIAR || wektor2 < 0 || wektor2 >= ROZMIAR)
+  {
+    std::cerr << ERROROUTOFBOUNDS << std::endl;
+    exit(1);
+  }
+ 
+  Wektor<TYP,ROZMIAR> pomocniczy(Wynikowa[wektor1]);
+  Wynikowa[wektor1] = Wynikowa[wektor2];
+  Wynikowa[wektor2] = pomocniczy;
+  return Wynikowa;
+}
 
 // Wczytanie macierzy
 template<class TYP, int ROZMIAR>

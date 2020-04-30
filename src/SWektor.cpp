@@ -54,18 +54,20 @@ TYP Wektor<TYP,ROZMIAR>::operator * (Wektor<TYP,ROZMIAR> const &wektor) const{
 
 // Mnozenie wektora i liczby rzeczywistej
 template<class TYP, int ROZMIAR>
-Wektor<TYP,ROZMIAR> Wektor<TYP,ROZMIAR>::operator * (double const &a) const{
+Wektor<TYP,ROZMIAR> Wektor<TYP,ROZMIAR>::operator * (TYP a) const{
   Wektor<TYP, ROZMIAR> wynik;
+  
   for(int i=0;i<ROZMIAR;i++)
     wynik[i]=(*this)[i]*a;
+  
   return wynik;
 }
 
 // Dzielenie wektora i liczby rzeczywistej
 template<class TYP, int ROZMIAR>
-Wektor<TYP,ROZMIAR> Wektor<TYP,ROZMIAR>::operator / (double const &a) const{
+Wektor<TYP,ROZMIAR> Wektor<TYP,ROZMIAR>::operator / (TYP a) const{
   Wektor<TYP,ROZMIAR> wynik;
-  if(a!=0){
+  if(a!=0.0){
   for(int i=0;i<ROZMIAR;i++)
     wynik[i]=(*this)[i]/a;
   return wynik;
@@ -125,7 +127,7 @@ bool Wektor<LZespolona,5>::operator != (const Wektor<LZespolona,5> &Wektor2) con
 }
 // Mnozenie liczby rzeczywistej razy wektor (odwrotna kolejnosc)
 template<class TYP, int ROZMIAR>
-Wektor<TYP,ROZMIAR> operator*(double a, const Wektor<TYP,ROZMIAR> & Wektor2){
+Wektor<TYP,ROZMIAR> operator*(TYP a, const Wektor<TYP,ROZMIAR> & Wektor2){
 
   return Wektor2*a;
 }

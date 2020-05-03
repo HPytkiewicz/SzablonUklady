@@ -152,7 +152,7 @@ template<class TYP, int ROZMIAR>
 Macierz<TYP,ROZMIAR> Macierz<TYP,ROZMIAR>::operator *(const Macierz<TYP,ROZMIAR> &macierz) const
 {
   Macierz<TYP,ROZMIAR> wynik;
-  Macierz<TYP,ROZMIAR> pomoc=((*this).transponuj());
+  Macierz<TYP,ROZMIAR> pomoc((*this).transponuj());
   for(int i=0; i<ROZMIAR; ++i)
     for(int j=0; j<ROZMIAR; ++j)
       wynik[j][i] += pomoc[j] * macierz[i];
@@ -171,27 +171,12 @@ Macierz<TYP,ROZMIAR> operator *(double a, const Macierz<TYP,ROZMIAR> macierz)
 template<class TYP, int ROZMIAR>
 TYP Macierz<TYP,ROZMIAR>::wyznacznik() const{
 
-  //  TYP pomoc(0);
-  //switch (metoda){
-    /*
-  case sarrus:
-    for(int i=0; i<ROZMIAR; i++)
-      pomoc += (*this)[i % ROZMIAR][0] * (*this)[(i+1) % ROZMIAR][1] * (*this)[(i+2) % ROZMIAR][2];
-    for(int i=0; i<ROZMIAR; i++)
-      pomoc -= (*this)[i % ROZMIAR][0] * (*this)[(i+2) % ROZMIAR][1] * (*this)[(i+1) % ROZMIAR][2];
-    return pomoc;
-    
-  case laplace:
-    for(int i=0; i<ROZMIAR; i++)
-      pomoc+= (*this)[i][0] * ((*this).dopelnienie(i,0));
-    return pomoc;
-*/
     TYP wynik(1);
     Macierz<TYP,ROZMIAR> pomocnicza(*this);
 
     for(int i=0; i<ROZMIAR-1; i++){
       bool flag = false;
-      int j=i;
+      int j = i;
       while(!flag && j < ROZMIAR)
 	{
 	  if(pomocnicza[i][j] != 0)
@@ -208,7 +193,7 @@ TYP Macierz<TYP,ROZMIAR>::wyznacznik() const{
 	wynik = 0;
 	return wynik;
       }
-      for (int x = i+1; x < ROZMIAR; i++)
+      for (int x = i+1; x < ROZMIAR; x++)
 	pomocnicza[x]=pomocnicza[x] - pomocnicza[i] * pomocnicza[x][i] / pomocnicza[i][i];
     }
     for(int i=0; i<ROZMIAR; i++)

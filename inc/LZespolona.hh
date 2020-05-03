@@ -18,28 +18,28 @@ struct  LZespolona {
   LZespolona & operator = (double _re) {re = _re; im=0; return (*this);};
 };
 
-LZespolona  operator + (const LZespolona Skl1, const LZespolona  Skl2);
+LZespolona operator + (const LZespolona &Skl1, const LZespolona &Skl2);
 
-LZespolona operator - (const LZespolona Skl1,const LZespolona Skl2);
+LZespolona operator - (const LZespolona &Skl1,const LZespolona &Skl2);
 
-LZespolona operator * (const LZespolona Skl1,const LZespolona Skl2);
+LZespolona operator * (const LZespolona &Skl1,const LZespolona &Skl2);
 
-LZespolona operator / (const LZespolona Skl1, const LZespolona Skl2);
+LZespolona operator / (const LZespolona &Skl1, const LZespolona &Skl2);
 
-double modul(const LZespolona Skl1);
+double modul(const LZespolona &Skl1);
 
-LZespolona operator += (LZespolona Skl1, const LZespolona Skl2);
+LZespolona operator += (LZespolona &Skl1, const LZespolona &Skl2);
 
-LZespolona sprzezenie(const LZespolona Skl1);
+LZespolona sprzezenie(const LZespolona &Skl1);
 
-LZespolona operator / (const LZespolona Skl1, double R1);
+LZespolona operator / (const LZespolona &Skl1, double R1);
 
-LZespolona operator * (const LZespolona Skl1, double R1);
+LZespolona operator * (const LZespolona &Skl1, double R1);
 
-bool operator ==(const LZespolona SKl1,const LZespolona Skl2);
-bool operator !=(const LZespolona SKl1,const LZespolona Skl2);
-bool operator ==(const LZespolona SKl1, const double R1);
-bool operator !=(const LZespolona SKl1, const double R1);
+bool operator ==(const LZespolona &SKl1,const LZespolona &Skl2);
+bool operator !=(const LZespolona &SKl1,const LZespolona &Skl2);
+bool operator ==(const LZespolona &SKl1, double R1);
+bool operator !=(const LZespolona &SKl1, double R1);
 
 std::ostream & operator <<(std::ostream & strm,const LZespolona & Skl1);
 

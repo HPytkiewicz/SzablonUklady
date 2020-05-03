@@ -29,8 +29,11 @@ TYP & Wektor<TYP,ROZMIAR>::operator[] (int index){
 template<class TYP, int ROZMIAR>
 Wektor<TYP,ROZMIAR> Wektor<TYP,ROZMIAR>::operator + (Wektor<TYP,ROZMIAR> const &wektor) const{
   Wektor<TYP,ROZMIAR> wynik;
-  for(int i=0;i<ROZMIAR;i++)
-    wynik[i]=(*this)[i] + wektor[i];
+  TYP pomoc;
+  for(int i=0;i<ROZMIAR;i++){
+    pomoc=(*this)[i] + wektor[i];
+    wynik[i]=pomoc;
+  }
   return wynik;
 }
 
@@ -38,8 +41,11 @@ Wektor<TYP,ROZMIAR> Wektor<TYP,ROZMIAR>::operator + (Wektor<TYP,ROZMIAR> const &
 template<class TYP, int ROZMIAR>
 Wektor<TYP,ROZMIAR> Wektor<TYP,ROZMIAR>::operator - (Wektor<TYP,ROZMIAR> const &wektor) const{
   Wektor<TYP,ROZMIAR> wynik;
-  for(int i=0;i<ROZMIAR;i++)
-    wynik[i]=(*this)[i] - wektor[i];
+  TYP pomoc;
+  for(int i=0;i<ROZMIAR;i++){
+    pomoc=(*this)[i] - wektor[i];
+    wynik[i]=pomoc;
+  }
   return wynik;
 }
 
@@ -80,7 +86,7 @@ template<class TYP, int ROZMIAR>
 double Wektor<TYP,ROZMIAR>::dlugosc() const{
   double wynik=0;
   for(int i=0;i<ROZMIAR; i++){
-    wynik+=(*this)[i]*(*this)[i];
+    wynik+=(*this)[i]*((*this)[i]);
   }
   return sqrt(wynik);
 }
@@ -146,7 +152,7 @@ template<class TYP, int ROZMIAR>
 std::istream& operator >> (std::istream &strm, Wektor<TYP,ROZMIAR> &wektor){
 
   for(int i=0;i<ROZMIAR;i++){
-    double pomoc;
+    TYP pomoc;
     strm>>pomoc;
     wektor[i]=pomoc;
   }

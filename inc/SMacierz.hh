@@ -10,7 +10,7 @@
 template<class TYP, int ROZMIAR>
 class Macierz {
   Wektor<TYP,ROZMIAR> tab[ROZMIAR];
-  TYP dopelnienie(int x, int y) const;
+  //  TYP dopelnienie(int x, int y) const;
  public:
   Macierz<TYP,ROZMIAR>(){
     for (int j = 0; j < ROZMIAR; j++)
@@ -32,7 +32,7 @@ class Macierz {
   bool operator != (const Macierz<TYP,ROZMIAR> & Macierz2) const;
 
   Macierz<TYP,ROZMIAR> transponuj() const;
-  Macierz<TYP,ROZMIAR> odwroc() const;
+  //  Macierz<TYP,ROZMIAR> odwroc() const;
   TYP wyznacznik() const;
 
   Macierz<TYP,ROZMIAR> ZmianaKolumn(int wektor1, int wektor2) const;

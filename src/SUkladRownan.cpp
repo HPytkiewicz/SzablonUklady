@@ -76,4 +76,5 @@ std::ostream & operator << (std::ostream &Strm, const UkladRownanLiniowych<TYP,R
     Strm <<  " |" << pomocnicza[i] << "| " << " |x_" << i+1 << "|"<< std::setw(2) << (i==(int)(ROZMIAR/2)?'=':' ') << std::setw(2) << "|";
       Strm << std::setw(SKIP) << UklRown.pobierzWektor()[i] << "|" << std::endl;
   }
+  return Strm;
 }
